@@ -7,7 +7,9 @@
  */
 import { createBot, type BotContext } from "@agntdev/bot-toolkit";
 import { initialSession, type Session } from "./types";
+import { createRepository, type Repository } from "./storage/repository";
 import { registerHelp } from "./commands/help";
+import { registerStart } from "./commands/start";
 
 /** Bot context with our typed session attached. */
 export type Ctx = BotContext<Session>;
@@ -18,13 +20,14 @@ export type Ctx = BotContext<Session>;
  *
  * Feature tasks (FEAT_*) register their command and flow handlers here.
  */
-export function makeBot() {
+export function makeBot(repo: Repository = createRepository()) {
   const bot = createBot<Session>(process.env.BOT_TOKEN!, {
     initial: initialSession,
   });
 
   // Command + flow handlers are wired by the feature tasks.
   registerHelp(bot);
+  registerStart(bot, repo);
 
   return bot;
 }
