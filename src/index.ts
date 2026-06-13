@@ -11,6 +11,7 @@ import { createRepository, type Repository } from "./storage/repository";
 import { registerHelp } from "./commands/help";
 import { registerStart } from "./commands/start";
 import { registerSetCrypto } from "./commands/setcrypto";
+import { registerSetPercent } from "./commands/setpercent";
 
 /** Bot context with our typed session attached. */
 export type Ctx = BotContext<Session>;
@@ -30,6 +31,7 @@ export function makeBot(repo: Repository = createRepository()) {
   registerHelp(bot);
   registerStart(bot, repo);
   registerSetCrypto(bot, repo);
+  registerSetPercent(bot, repo);
 
   return bot;
 }
