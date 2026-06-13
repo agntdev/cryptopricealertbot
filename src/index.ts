@@ -7,6 +7,7 @@
  */
 import { createBot, type BotContext } from "@agntdev/bot-toolkit";
 import { initialSession, type Session } from "./types";
+import { registerHelp } from "./commands/help";
 
 /** Bot context with our typed session attached. */
 export type Ctx = BotContext<Session>;
@@ -23,6 +24,7 @@ export function makeBot() {
   });
 
   // Command + flow handlers are wired by the feature tasks.
+  registerHelp(bot);
 
   return bot;
 }
