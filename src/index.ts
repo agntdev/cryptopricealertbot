@@ -10,6 +10,7 @@ import { initialSession, type Session } from "./types";
 import { createRepository, type Repository } from "./storage/repository";
 import { registerHelp } from "./commands/help";
 import { registerStart } from "./commands/start";
+import { registerSetCrypto } from "./commands/setcrypto";
 
 /** Bot context with our typed session attached. */
 export type Ctx = BotContext<Session>;
@@ -28,6 +29,7 @@ export function makeBot(repo: Repository = createRepository()) {
   // Command + flow handlers are wired by the feature tasks.
   registerHelp(bot);
   registerStart(bot, repo);
+  registerSetCrypto(bot, repo);
 
   return bot;
 }
