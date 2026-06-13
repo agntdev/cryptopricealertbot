@@ -13,6 +13,7 @@ import { registerStart } from "./commands/start";
 import { registerSetCrypto } from "./commands/setcrypto";
 import { registerSetPercent } from "./commands/setpercent";
 import { registerAlerts } from "./commands/alerts";
+import { startMonitor } from "./services/monitor";
 
 /** Bot context with our typed session attached. */
 export type Ctx = BotContext<Session>;
@@ -38,7 +39,11 @@ export function makeBot(repo: Repository = createRepository()) {
   return bot;
 }
 
-// Standalone run (outside the harness): start long polling.
+// Standalone run (outside the harness): share one repository between the bot
+// and the background monitor, then start long polling.
 if (require.main === module) {
-  makeBot().start();
+  const repo = createRepository();
+  const bot = makeBot(repo);
+  startMonitor(bot, repo);
+  bot.start();
 }
