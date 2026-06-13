@@ -1,0 +1,136 @@
+[
+  {
+    "name": "/start greets the user and offers coin buttons",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [{ "method": "sendMessage" }]
+      }
+    ]
+  },
+  {
+    "name": "/help lists the available commands",
+    "steps": [
+      {
+        "send": { "text": "/help" },
+        "expect": [{ "method": "sendMessage" }]
+      }
+    ]
+  },
+  {
+    "name": "/setcrypto with no argument prompts for a coin",
+    "steps": [
+      {
+        "send": { "text": "/setcrypto" },
+        "expect": [{ "method": "sendMessage" }]
+      }
+    ]
+  },
+  {
+    "name": "/setcrypto BTC then /setpercent 5 creates an alert",
+    "steps": [
+      {
+        "send": { "text": "/setcrypto BTC" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "/setpercent 5" },
+        "expect": [{ "method": "sendMessage" }]
+      }
+    ]
+  },
+  {
+    "name": "tapping a coin button advances the wizard",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "callback": "coin:TON" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "sendMessage" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "a bare number during the wizard sets the threshold",
+    "steps": [
+      {
+        "send": { "text": "/setcrypto TON" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "3" },
+        "expect": [{ "method": "sendMessage" }]
+      }
+    ]
+  },
+  {
+    "name": "/setpercent before choosing a coin asks for one",
+    "steps": [
+      {
+        "send": { "text": "/setpercent 5" },
+        "expect": [{ "method": "sendMessage" }]
+      }
+    ]
+  },
+  {
+    "name": "an invalid percent is rejected without losing the coin",
+    "steps": [
+      {
+        "send": { "text": "/setcrypto BTC" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "not-a-number" },
+        "expect": [{ "method": "sendMessage" }]
+      }
+    ]
+  },
+  {
+    "name": "/alerts lists active alerts after setup",
+    "steps": [
+      {
+        "send": { "text": "/setcrypto BTC" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "/setpercent 5" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "/alerts" },
+        "expect": [{ "method": "sendMessage" }]
+      }
+    ]
+  },
+  {
+    "name": "/removealert disables a configured alert",
+    "steps": [
+      {
+        "send": { "text": "/setcrypto BTC" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "/setpercent 5" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "text": "/removealert BTC" },
+        "expect": [{ "method": "sendMessage" }]
+      }
+    ]
+  },
+  {
+    "name": "/removealert with no argument shows usage",
+    "steps": [
+      {
+        "send": { "text": "/removealert" },
+        "expect": [{ "method": "sendMessage" }]
+      }
+    ]
+  }
+]
