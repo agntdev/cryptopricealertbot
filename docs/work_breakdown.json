@@ -1,0 +1,59 @@
+{
+  "phase": "dev",
+  "tasks": [
+    {
+      "key": "F00",
+      "kind": "foundation",
+      "title": "Project skeleton + makeBot() factory, config, and shared types",
+      "depends_on": []
+    },
+    {
+      "key": "FEAT_STORAGE",
+      "kind": "feature",
+      "title": "Persistence layer: schema + repositories (User, Cryptocurrency seed BTC/TON, UserAlert, PriceSnapshot)",
+      "depends_on": ["F00"]
+    },
+    {
+      "key": "FEAT_PRICES",
+      "kind": "feature",
+      "title": "CoinGecko price service: batched price + 24h change for BTC and TON",
+      "depends_on": ["F00"]
+    },
+    {
+      "key": "FEAT_HELP",
+      "kind": "feature",
+      "title": "/help command: static command reference",
+      "depends_on": ["F00"]
+    },
+    {
+      "key": "FEAT_START",
+      "kind": "feature",
+      "title": "/start command: register user, welcome, coin-select inline keyboard",
+      "depends_on": ["F00", "FEAT_STORAGE"]
+    },
+    {
+      "key": "FEAT_SETCRYPTO",
+      "kind": "feature",
+      "title": "/setcrypto command: coin selection via arg or inline buttons, draft into session",
+      "depends_on": ["F00", "FEAT_STORAGE"]
+    },
+    {
+      "key": "FEAT_SETPERCENT",
+      "kind": "feature",
+      "title": "/setpercent command: threshold capture + create/update UserAlert",
+      "depends_on": ["FEAT_SETCRYPTO", "FEAT_STORAGE"]
+    },
+    {
+      "key": "FEAT_ALERTS",
+      "kind": "feature",
+      "title": "/alerts and /removealert commands: list and disable a user's alerts",
+      "depends_on": ["FEAT_STORAGE"]
+    },
+    {
+      "key": "FEAT_MONITOR",
+      "kind": "feature",
+      "title": "PriceMonitor loop: poll prices, snapshot, evaluate thresholds, dispatch alert DMs",
+      "depends_on": ["FEAT_STORAGE", "FEAT_PRICES"]
+    }
+  ]
+}
