@@ -12,6 +12,7 @@ import { registerHelp } from "./commands/help";
 import { registerStart } from "./commands/start";
 import { registerSetCrypto } from "./commands/setcrypto";
 import { registerSetPercent } from "./commands/setpercent";
+import { registerAlerts } from "./commands/alerts";
 
 /** Bot context with our typed session attached. */
 export type Ctx = BotContext<Session>;
@@ -32,6 +33,7 @@ export function makeBot(repo: Repository = createRepository()) {
   registerStart(bot, repo);
   registerSetCrypto(bot, repo);
   registerSetPercent(bot, repo);
+  registerAlerts(bot, repo);
 
   return bot;
 }
